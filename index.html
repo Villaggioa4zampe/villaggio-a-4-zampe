@@ -35,6 +35,7 @@
       </div>
       <div class="section-head"><div><p class="eyebrow">ATTIVITÀ</p><h2>Prossimi soggiorni</h2></div><button class="primary small" data-action="new-booking">+ Prenota</button></div>
       <div id="upcoming" class="stack"></div>
+      <section class="cloud-panel"><h2>Backup Google Drive</h2><p id="cloudStatus" role="status">Non collegato</p><p id="cloudLast"></p><button class="primary" id="cloudConnect">Collega Google Drive</button> <button class="secondary" id="cloudSave" disabled>Salva backup</button> <button class="secondary" id="cloudRestore" disabled>Ripristina backup</button> <button class="secondary" id="cloudDisconnect" disabled>Scollega</button><p class="muted">Backup dopo ogni modifica durante una sessione autorizzata. Non è una sincronizzazione in tempo reale tra dispositivi.</p></section>
     </section>
 
     <section id="bookings" class="page">
@@ -85,5 +86,6 @@
   <div id="toast" class="toast" role="status"></div>
   <footer>Villaggio a 4 zampe <span>•</span> I tuoi ospiti, con cura.</footer>
   <script src="app.js"></script>
+  <script src="cloud.js"></script>
 </body>
 </html>
