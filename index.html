@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#315b45">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Villaggio 4 zampe">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Villaggio a 4 zampe</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="paw">🐾</span><div><strong>Villaggio a 4 zampe</strong><small>Gestione pensione</small></div></div>
+    <button id="installBtn" class="install hidden">Installa app</button>
+  </header>
+  <main>
+    <nav class="tabs" aria-label="Navigazione">
+      <button class="tab active" data-page="home">Panoramica</button>
+      <button class="tab" data-page="bookings">Prenotazioni</button>
+      <button class="tab" data-page="boxes">Box</button>
+      <button class="tab" data-page="calendar">Calendario</button>
+    </nav>
+
+    <section id="home" class="page active">
+      <div class="welcome"><div><p class="eyebrow">BENVENUTO</p><h1>La pensione, sotto controllo.</h1><p class="muted">Ecco la situazione della struttura.</p></div><span class="dog-art">🐕</span></div>
+      <div class="stats">
+        <article class="stat"><span>🐶</span><strong id="dogsPresent">0</strong><small>Cani presenti ora</small></article>
+        <article class="stat"><span>📥</span><strong id="arrivalsToday">0</strong><small>Arrivi oggi</small></article>
+        <article class="stat"><span>📤</span><strong id="departuresToday">0</strong><small>Partenze oggi</small></article>
+        <article class="stat"><span>🏡</span><strong id="boxCount">48</strong><small>Box configurati</small></article>
+      </div>
+      <div class="section-head"><div><p class="eyebrow">ATTIVITÀ</p><h2>Prossimi soggiorni</h2></div><button class="primary small" data-action="new-booking">+ Prenota</button></div>
+      <div id="upcoming" class="stack"></div>
+    </section>
+
+    <section id="bookings" class="page">
+      <div class="section-head"><div><p class="eyebrow">GESTIONE OSPITI</p><h1>Prenotazioni</h1></div><button class="primary" data-action="new-booking">+ Nuova</button></div>
+      <input id="bookingSearch" class="search" placeholder="Cerca cane o proprietario…" />
+      <div id="bookingList" class="stack"></div>
+    </section>
+
+    <section id="boxes" class="page">
+      <div class="section-head"><div><p class="eyebrow">SPAZI DELLA STRUTTURA</p><h1>I tuoi box</h1></div><span class="pill">48 box</span></div>
+      <p class="muted">Imposta la capienza reale di ogni box. Non esiste un limite complessivo di cani.</p>
+      <div id="boxGrid" class="box-grid"></div>
+    </section>
+
+    <section id="calendar" class="page">
+      <div class="section-head"><div><p class="eyebrow">PIANIFICAZIONE</p><h1>Calendario</h1></div></div>
+      <div class="calendar-controls"><button id="prevMonth" class="icon-btn">‹</button><strong id="monthLabel"></strong><button id="nextMonth" class="icon-btn">›</button></div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <p class="muted calendar-note">Il numero indica i cani presenti in struttura quel giorno.</p>
+    </section>
+  </main>
+
+  <dialog id="bookingDialog">
+    <form id="bookingForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">NUOVO SOGGIORNO</p><h2 id="bookingDialogTitle">Nuova prenotazione</h2></div><button type="button" class="icon-btn" data-close="bookingDialog">×</button></div>
+      <input type="hidden" id="bookingId">
+      <label>Nome cane<input id="dogName" required placeholder="Es. Luna"></label>
+      <div class="two"><label>Numero cani<input id="dogCountInput" type="number" min="1" value="1" required></label><label>Box<select id="boxSelect" required></select></label></div>
+      <label>Proprietario<input id="ownerName" required placeholder="Nome e cognome"></label>
+      <div class="two"><label>Telefono WhatsApp<input id="phone" type="tel" placeholder="+39…"></label><label>Importo totale (€)<input id="totalAmount" type="number" min="0" step="0.01" value="0"></label></div>
+      <div class="two"><label>Arrivo<input id="startDate" type="date" required></label><label>Partenza<input id="endDate" type="date" required></label></div>
+      <div class="two"><label>Pagato (€)<input id="paidAmount" type="number" min="0" step="0.01" value="0"></label><label>Stato<select id="bookingStatus"><option value="booked">Prenotato</option><option value="checked-in">Presente</option><option value="checked-out">Concluso</option></select></label></div>
+      <label>Note<textarea id="notes" rows="2" placeholder="Alimentazione, esigenze, annotazioni…"></textarea></label>
+      <p id="formError" class="error" role="alert"></p>
+      <div class="dialog-actions"><button type="button" class="secondary" data-close="bookingDialog">Annulla</button><button type="submit" class="primary">Salva prenotazione</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="boxDialog">
+    <form id="boxForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CONFIGURAZIONE</p><h2 id="boxDialogTitle">Modifica box</h2></div><button type="button" class="icon-btn" data-close="boxDialog">×</button></div>
+      <input id="boxId" type="hidden">
+      <label>Nome box<input id="boxName" required></label>
+      <label>Capienza massima cani<input id="boxCapacity" type="number" min="1" required></label>
+      <div class="dialog-actions"><button type="button" class="secondary" data-close="boxDialog">Annulla</button><button type="submit" class="primary">Salva box</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <footer>Villaggio a 4 zampe <span>•</span> I tuoi ospiti, con cura.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
