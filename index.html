@@ -67,10 +67,10 @@
       <label>Proprietario<input id="ownerName" required placeholder="Nome e cognome"></label>
       <div class="two"><label>Telefono WhatsApp<input id="phone" type="tel" placeholder="+39…"></label><label>Importo totale (€)<input id="totalAmount" type="number" min="0" step="0.01" value="0"></label></div>
       <div class="two"><label>Arrivo<input id="startDate" type="date" required></label><label>Partenza<input id="endDate" type="date" required></label></div>
-      <div class="two"><label>Pagato (€)<input id="paidAmount" type="number" min="0" step="0.01" value="0"></label><label>Stato<select id="bookingStatus"><option value="booked">Prenotato</option><option value="checked-in">Presente</option><option value="checked-out">Concluso</option></select></label></div>
+      <div class="two"><label>Pagato (€)<input id="paidAmount" type="number" min="0" step="0.01" value="0"></label><label>Stato<select id="bookingStatus"><option value="booked">Prenotato</option><option value="checked-in">Presente</option><option value="checked-out">Concluso</option><option value="cancelled">Annullato</option></select></label></div>
       <label>Note<textarea id="notes" rows="2" placeholder="Alimentazione, esigenze, annotazioni…"></textarea></label>
       <p id="formError" class="error" role="alert"></p>
-      <div class="dialog-actions"><button type="button" class="secondary" data-close="bookingDialog">Annulla</button><button type="submit" class="primary">Salva prenotazione</button></div>
+      <button type="button" id="deleteBooking" class="danger hidden">Elimina prenotazione</button><div class="dialog-actions"><button type="button" class="secondary" data-close="bookingDialog">Annulla</button><button type="submit" class="primary">Salva prenotazione</button></div>
     </form>
   </dialog>
 
