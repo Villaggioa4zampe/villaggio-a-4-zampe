@@ -35,12 +35,16 @@
       </div>
       <div class="section-head"><div><p class="eyebrow">ATTIVITÀ</p><h2>Prossimi soggiorni</h2></div><button class="primary small" data-action="new-booking">+ Prenota</button></div>
       <div id="upcoming" class="stack"></div>
-      <section class="cloud-panel"><h2>Backup Google Drive</h2><p id="cloudStatus" role="status">Non collegato</p><p id="cloudLast"></p><button class="primary" id="cloudConnect">Collega Google Drive</button> <button class="secondary" id="cloudSave" disabled>Salva backup</button> <button class="secondary" id="cloudRestore" disabled>Ripristina backup</button> <button class="secondary" id="cloudDisconnect" disabled>Scollega</button><p class="muted">Backup dopo ogni modifica durante una sessione autorizzata. Non è una sincronizzazione in tempo reale tra dispositivi.</p></section>
+      <section class="cloud-panel"><h2>Backup Google Drive</h2><p id="cloudStatus" role="status">Non collegato</p><p id="cloudLast"></p><button class="primary" id="cloudConnect">Collega Google Drive</button> <button class="secondary" id="cloudSave" disabled>Salva backup</button> <button class="secondary" id="cloudRestore" disabled>Ripristina backup</button> <button class="secondary" id="cloudDisconnect" disabled>Scollega</button><p class="muted">Le modifiche si salvano subito sul dispositivo. Con Google Drive collegato, l’app crea e aggiorna il backup automaticamente. Se la sessione scade, ricollega Google Drive.</p></section>
     </section>
 
     <section id="bookings" class="page">
       <div class="section-head"><div><p class="eyebrow">GESTIONE OSPITI</p><h1>Prenotazioni</h1></div><button class="primary" data-action="new-booking">+ Nuova</button></div>
-      <input id="bookingSearch" class="search" placeholder="Cerca cane o proprietario…" />
+      <input id="bookingSearch" class="search" placeholder="Cerca cane, proprietario o associazione…" />
+      <select id="bookingFilter" class="search" aria-label="Filtra prenotazioni">
+        <option value="">Tutte le prenotazioni</option>
+        <option value="adoption">Cani in adozione</option>
+      </select>
       <div id="bookingList" class="stack"></div>
     </section>
 
@@ -64,9 +68,13 @@
       <input type="hidden" id="bookingId">
       <label>Nome cane<input id="dogName" required placeholder="Es. Luna"></label>
       <div class="two"><label>Numero cani<input id="dogCountInput" type="number" min="1" value="1" required></label><label>Box<select id="boxSelect" required></select></label></div>
-      <label>Proprietario<input id="ownerName" required placeholder="Nome e cognome"></label>
+      <label>Tipo di soggiorno<select id="bookingType">
+        <option value="">Pensione</option>
+        <option value="adoption">Cane in adozione</option>
+      </select></label>
+      <label><span id="ownerLabel">Proprietario</span><input id="ownerName" required placeholder="Nome e cognome"></label>
       <div class="two"><label>Telefono WhatsApp<input id="phone" type="tel" placeholder="+39…"></label><label>Importo totale (€)<input id="totalAmount" type="number" min="0" step="0.01" value="0"></label></div>
-      <div class="two"><label>Arrivo<input id="startDate" type="date" required></label><label>Partenza<input id="endDate" type="date" required></label></div>
+      <div class="two"><label>Arrivo<input id="startDate" type="date" required></label><label><span id="endLabel">Partenza</span><input id="endDate" type="date" required></label></div>
       <div class="two"><label>Pagato (€)<input id="paidAmount" type="number" min="0" step="0.01" value="0"></label><label>Stato<select id="bookingStatus"><option value="booked">Prenotato</option><option value="checked-in">Presente</option><option value="checked-out">Concluso</option><option value="cancelled">Annullato</option></select></label></div>
       <label>Note<textarea id="notes" rows="2" placeholder="Alimentazione, esigenze, annotazioni…"></textarea></label>
       <p id="formError" class="error" role="alert"></p>
